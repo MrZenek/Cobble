@@ -1,0 +1,8 @@
+author: MrZenek
+main: net.mrzenekcobble.Cobble
+name: Cobble
+version: 1.0
+commands:
+    cobble:
+        description: on/off drop CobbleStone
+        usage: /<command>
