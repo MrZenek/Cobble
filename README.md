@@ -5,3 +5,4 @@ Dzięki temu pluginowi możesz włączyć(/cobble on) lub wyłączyć(/cobble of
 ======
 ENG:
 With this plugin you can enable(/cobble on) or disable(/cobble off) the cobblestone loss.It works exactly the same as on the server Hardcore skkf(mc.skkf.net).
+======
