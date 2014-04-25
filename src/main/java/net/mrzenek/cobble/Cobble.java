@@ -48,14 +48,14 @@ public class Cobble extends JavaPlugin implements Listener {
 				return true;
 			}
 			if(args.length == 1){
-				if(args[0].equalsIgnoreCase("on")){
-					pcobl.put(sender.getName(), "on");
+				if(args[0].equalsIgnoreCase("off")){
+					pcobl.put(sender.getName(), "off");
 					sender.sendMessage(Name + ChatColor.DARK_GREEN + "Wylaczyles wypadanie cobble");
 					return true;
 				}else{
-					if(args[0].equalsIgnoreCase("off")){
+					if(args[0].equalsIgnoreCase("on")){
 						sender.sendMessage(Name + ChatColor.BLUE + "Wlaczyles wypadanie cobble");
-						pcobl.put(sender.getName(), "off");
+						pcobl.put(sender.getName(), "on");
 						return true;
 					}else{
 						sender.sendMessage(Name + ChatColor.DARK_RED + "Poprawne użycie komendy: /cobble on/off");
@@ -71,7 +71,7 @@ public class Cobble extends JavaPlugin implements Listener {
 	public void PlayerBreak(BlockBreakEvent event){
 		Player p = event.getPlayer();
 		if(event.getBlock().getType() == Material.STONE){
-			if(pcobl.get(p.getName()).equals("on")){
+			if(pcobl.get(p.getName()).equals("off")){
 			event.setCancelled(true);
 			
 			event.getBlock().setType(Material.AIR);
