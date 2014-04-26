@@ -1,7 +1,7 @@
-author: MrZenek
+author: Warrock Hack(MPCFORUM) MrZenek
 main: net.mrzenekcobble.Cobble
 name: Cobble
-version: 1.0
+version: 2.1
 commands:
     cobble:
         description: on/off drop CobbleStone
