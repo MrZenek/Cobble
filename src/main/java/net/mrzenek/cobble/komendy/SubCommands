@@ -1,0 +1,13 @@
+package net.mrzenek.cobble.komendy;
+
+import org.bukkit.entity.Player;
+
+public interface SubCommands {
+	
+	public boolean onCommand(Player player, String[] args);
+	
+	public String help(Player p);
+	
+	public String permission();
+
+}
