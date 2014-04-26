@@ -1,0 +1,29 @@
+package net.mrzenek.cobble.events;
+
+import net.mrzenek.cobble.Cobble;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+
+public class PlayerBreak implements Listener {
+
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void PlayerBreaks(BlockBreakEvent event){
+		Player p = event.getPlayer();
+		if(event.getBlock().getType() == Material.STONE){
+			if(Cobble.global.get("*") != null || Cobble.offc.contains(p)){
+				if(Cobble.global.get("*") == "false" || Cobble.offc.contains(p)){
+				short s = (short) (p.getItemInHand().getDurability() + 1);
+
+				p.getItemInHand().setDurability(s);;
+				
+				event.getBlock().setType(Material.AIR);
+				}
+			}
+		}
+	}
+}
