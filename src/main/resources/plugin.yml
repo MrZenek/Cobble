@@ -1,8 +1,0 @@
-author: Warrock Hack(MPCFORUM) MrZenek
-main: net.mrzenekcobble.Cobble
-name: Cobble
-version: 2.1
-commands:
-    cobble:
-        description: on/off drop CobbleStone
-        usage: /<command>
