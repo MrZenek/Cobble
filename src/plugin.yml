@@ -1,5 +1,5 @@
 name: cobble
-version: 3.0
+version: 3.1
 author: MrZenek
 main: net.mrzenek.cobble.Main
 commands:
