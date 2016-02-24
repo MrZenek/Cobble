@@ -19,7 +19,7 @@ Instead, "global" you can use the "g"
 
 ChangeLog:
 
-3.0 (Rewrite plug-in!)\n
+3.0 (Rewrite plug-in!) 
 -Optimalized
 
 -Updated for minecraft spigot 1.8.8
