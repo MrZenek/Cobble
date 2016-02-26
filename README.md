@@ -40,12 +40,13 @@ ChangeLog:
 * Added Test, Global, on/off commands  
 * Move Event to other file  
 * Create commands files  
+* Fixed bug with pickaxe!  
 
 2.0  
-??  
-
-1.1  
-* Fixed cobble command!
+* fixed /cobble on/off command  
+* Added /cobble global on/off command  
+* Added permissions  
+* Fixed error in console  
 
 1.0  
 * Created plug-in!
