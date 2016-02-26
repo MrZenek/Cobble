@@ -1,31 +1,52 @@
 package net.mrzenek.cobble;
 
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
+import java.io.File;
 
 public class Main extends JavaPlugin {
 
-	public String cmd = "cobble";
+	private static PluginDescriptionFile pdf;
+	private static DropControler dropControler;
+	private FileConfiguration config;
+	private String cmd = "cobble";
 
-	public static PluginDescriptionFile pdf;
+	public static DropControler getDropController() {
+		return dropControler;
+	}
 
-	public void onEnable() {
-		pdf = this.getDescription();
-
-		System.out.println("[" +  pdf.getName() + " " + pdf.getVersion() + "]" + "Plugins is ON");
-
-		new DropControler(true, new ArrayList<Player>());
-
-		this.getCommand(cmd).setExecutor(new Commands());
-
-		getServer().getPluginManager().registerEvents(new BreakListener(), this);
+	public static PluginDescriptionFile getPDF() {
+		return pdf;
 	}
 
 	public void onDisable() {
-		System.out.println("[" +  pdf.getName() + " " + pdf.getVersion() + "]" + "Plugins is OFF");
+		config.set("global-drop", dropControler.canDropBoolean());
+		System.out.println("[" + pdf.getName() + " " + pdf.getVersion() + "]" + "Plugin is OFF");
+	}
+
+	public void onEnable() {
+		pdf = this.getDescription();
+		dropControler = new DropControler(true);
+		config = this.getConfig();
+		setup();
+
+		System.out.println("[" + pdf.getName() + " " + pdf.getVersion() + "]" + "Plugin is ON");
+
+		this.getCommand(cmd).setExecutor(new Commands());
+		getServer().getPluginManager().registerEvents(new BreakListener(), this);
+	}
+
+	private void setup() {
+		if(config.getInt("version") == 0){
+			File cc = new File(this.getDataFolder(), "config.yml");
+			cc.delete();
+		}
+		config.options().copyDefaults(true);
+		this.saveDefaultConfig();
+		boolean drop = config.getString("global-drop") == null ? true : config.getBoolean("global-drop");
+		dropControler.setCanDrop(drop);
 	}
 
 }

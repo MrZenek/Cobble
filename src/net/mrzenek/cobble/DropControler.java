@@ -3,24 +3,30 @@ package net.mrzenek.cobble;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DropControler {
 
-	public static boolean canDrop;
+	private boolean canDrop;
 
-	public static ArrayList<Player> players;
+	private List<Player> players;
+
+	public DropControler(boolean canDrop) {
+		this.canDrop = canDrop;
+		this.players = new ArrayList<Player>();
+	}
 
 	public DropControler(boolean canDrop, ArrayList<Player> players) {
 		this.canDrop = canDrop;
 		this.players = players;
 	}
 
-	public static void setCanDrop(boolean can) {
+	public void setCanDrop(boolean can) {
 		players.clear();
 		canDrop = can;
 	}
 
-	public static void turn(Player player) {
+	public void turn(Player player) {
 		if (players.contains(player)) {
 			players.remove(player);
 		} else {
@@ -28,33 +34,27 @@ public class DropControler {
 		}
 	}
 
-	public static String canDropString() {
-		if (canDrop) {
-			return "true";
-		} else {
-			return "false";
-		}
+	public String canDropString() {
+		return canDrop ? "true" : "false";
 	}
 
-	public static boolean canDropBoolean() {
+	public boolean canDropBoolean() {
 		return canDrop;
 	}
 
-	public static String playerCanDropSring(Player player) {
+	public String playerCanDropSring(Player player) {
 		if (players.contains(player)) {
-			if(canDrop) return "false";
-			return "true";
+			return canDrop ? "false" : "true";
 		} else {
-			if(canDrop) return "true";
-			return "false";
+			return canDrop ? "true" : "false";
 		}
 	}
 
-	public static boolean playerCanDropBoolean(Player player) {
-		if (players.contains(player)) {
-			return false;
-		} else {
-			return true;
-		}
+	public boolean playerCanDropBoolean(Player player) {
+		return players.contains(player) ? false : true;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
 	}
 }

@@ -7,12 +7,26 @@ Commands:
 /cobble - Showing your drop and global drop status.  
 /cobble turn - changing your cobblestone drop status. (Can`t be use in console!)  
 /cobble global/g on - Turn on cobblestone drop.  
-/cobble global/g off - Turn off cobblestone drop.  
+/cobble global/g off - Turn off cobblestone drop.
 
 Instead, "global" you can use the "g"
 
+Permissions (if you have OP, you have all permissions):  
+cobble.admin - Acces to all commands.  
+cobble.global - Acces to player commands and global commands.  
+cobble.on - You always get drop!  
+cobble.off - You never get drop!  
+cobble.cant - You can`t use any commands!(Without /cobble)  
+
+Config is updated when the server shuts down(When server disable the plugins)
+
 ChangeLog:
 ===========
+3.2  
+* Added permission!  
+* Removed static methods in DropController!  
+* Added config file!    
+
 3.1  
 * Added Drop Controller for better drop managment  
 * Should work with other plugins! (Not tested)  

@@ -1,0 +1,11 @@
+################################################
+#                   Cobble                     #
+#                                              #
+#                Developed by                  #
+#                   MrZenek                    #
+#                                              #
+#       https://github.com/MrZenek/Cobble      #
+################################################
+version: 1
+#When its true, cobblestone can drop from stone. If false it can't drop.
+global-drop: true
