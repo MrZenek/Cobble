@@ -1,8 +1,8 @@
 name: cobble
-version: 3.2
+version: 3.3
 author: MrZenek
 main: net.mrzenek.cobble.Main
 commands:
       cobble:
                description: You can turn off/on cobblestone drop!!
-               usage: Wrote /cobble help to get more information
+               usage: Type /cobble help to get more information

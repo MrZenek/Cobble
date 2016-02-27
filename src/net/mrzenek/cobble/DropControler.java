@@ -7,18 +7,24 @@ import java.util.List;
 
 public class DropControler {
 
+	private static DropControler instance = new DropControler();
+
 	private boolean canDrop;
 
 	private List<Player> players;
 
-	public DropControler(boolean canDrop) {
-		this.canDrop = canDrop;
+	public DropControler() {
+		this.canDrop = true;
 		this.players = new ArrayList<Player>();
 	}
 
 	public DropControler(boolean canDrop, ArrayList<Player> players) {
 		this.canDrop = canDrop;
 		this.players = players;
+	}
+
+	public static DropControler getInstance(){
+		return instance;
 	}
 
 	public void setCanDrop(boolean can) {

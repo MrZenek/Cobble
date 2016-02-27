@@ -9,35 +9,40 @@ import org.bukkit.entity.Player;
 
 public class Commands implements CommandExecutor {
 
+	private Main main;
+
+	public Commands(Main main) {
+		this.main = main;
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player) && !(sender instanceof ConsoleCommandSender)) return false;
+		DropControler dropControler = DropControler.getInstance();
 		if (sender instanceof ConsoleCommandSender) {
+			ConsoleCommandSender console = (ConsoleCommandSender) sender;
 			if (args.length > 0) {
 				if (args[0].equalsIgnoreCase("global") || args[0].equalsIgnoreCase("g")) { //Console global command
 					if (args.length > 1) {
 						if (args[1].equalsIgnoreCase("on")) {//Console global on command
-							Main.getDropController().setCanDrop(true);
-							System.out.println("|---Cobble---|");
-							System.out.println("Global Drop: " + Main.getDropController().canDropString());
+							dropControler.setCanDrop(true);
+							consoleMessage("[Cobble]", "info.globaldrop", dropControler.canDropString(), console);
 						}
 						if (args[1].equalsIgnoreCase("off")) {//Console global off command
-							Main.getDropController().setCanDrop(false);
-							System.out.println("|---Cobble---|");
-							System.out.println("Global Drop: " + Main.getDropController().canDropString());
+							dropControler.setCanDrop(false);
+							consoleMessage("[Cobble]", "info.globaldrop", dropControler.canDropString(), console);
 						}
 					} else {
 						return false;
 					}
 				} else if (args[0].equalsIgnoreCase("help")) {//Console help command
-					System.out.println("Cobble HELP " + Main.getPDF().getVersion());
-					System.out.println("/cobble - Showing global drop status");
-					System.out.println("/cobble global/g on - Turn on cobblestone drop");
-					System.out.println("/cobble global/g off - Turn off cobblestone drop");
-					System.out.println("Instead, global you can use the g");
+					System.out.println("Cobble HELP " + main.pdf.getVersion());
+					consoleMessage("/cobble: ", "help.cobble", "", console);
+					consoleMessage("/cobble global/g on: ", "help.globalon", "", console);
+					consoleMessage("/cobble global/g off: ", "help.globaloff", "", console);
+					consoleMessage("", "help.instead", "", console);
 				}
 			} else {
-				System.out.println("|---Cobble---|");
-				System.out.println("Global Drop: " + Main.getDropController().canDropString());
+				consoleMessage("[Cobble]", "info.globaldrop", dropControler.canDropString(), console);
 				return false;
 			}
 		}
@@ -45,42 +50,38 @@ public class Commands implements CommandExecutor {
 			Player player = (Player) sender;
 			if (args.length > 0) {
 				if (cant(player) && args[0].equalsIgnoreCase("turn")) {//Player turn command
-					Main.getDropController().turn(player);
-					player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET +  "Cobble" + ChatColor.YELLOW + "---|");
-					player.sendMessage(ChatColor.LIGHT_PURPLE + "Your drop: " + Main.getDropController().playerCanDropSring(player));
+					dropControler.turn(player);
+					playerMessage("[Cobble]", "info.youdrop", dropControler.playerCanDropSring(player), player);
 				} else if (cant(player) && args[0].equalsIgnoreCase("global") || args[0].equalsIgnoreCase("g")) {//Player global command
 					if (args.length == 2 & pCan(player)) {
 						if (args[1].equalsIgnoreCase("on")) {//Player global on command
-							Main.getDropController().setCanDrop(true);
-							player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET +  "Cobble" + ChatColor.YELLOW + "---|");
-							player.sendMessage(ChatColor.GREEN + "Global Drop: " + Main.getDropController().canDropString());
-						} else
-						if (args[1].equalsIgnoreCase("off")) {//Player global off command
-							Main.getDropController().setCanDrop(false);
-							player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET +  "Cobble" + ChatColor.YELLOW + "---|");
-							player.sendMessage(ChatColor.RED + "Global Drop: " + Main.getDropController().canDropString());
+							dropControler.setCanDrop(true);
+							playerMessage("[Cobble]", "info.globaldrop", dropControler.canDropString(), player);
+						} else if (args[1].equalsIgnoreCase("off")) {//Player global off command
+							dropControler.setCanDrop(false);
+							playerMessage("[Cobble]", "info.globaldrop", dropControler.canDropString(), player);
 						} else {
-							if (!pCan(player)) player.sendMessage(ChatColor.RED + "You can`t do that!");
+							if (!pCan(player)) playerMessage("[Cobble]", "error.nopermission", "", player);
 							return false;
 						}
 					} else {
-						if (!pCan(player)) player.sendMessage(ChatColor.RED + "You can`t do that!");
+						if (!pCan(player)) playerMessage("[Cobble]", "error.nopermission", "", player);
 						return false;
 					}
 				} else if (args[0].equalsIgnoreCase("help")) {//Player help command
-					player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET +  "Cobble HELP [v" + Main.getPDF().getVersion() + "]" + ChatColor.YELLOW + "---|");
-					player.sendMessage(ChatColor.GOLD + "/cobble:" + ChatColor.RESET +  " Showing your drop and global drop status");
-					player.sendMessage(ChatColor.GOLD + "/cobble turn:" + ChatColor.RESET +  " Changing your cobblestone drop status");
+					player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET + "Cobble HELP [v" + main.pdf.getVersion() + "]" + ChatColor.YELLOW + "---|");
+					playerMessage(ChatColor.GOLD + "/cobble: ", "help.cobble", "", player);
+					playerMessage(ChatColor.GOLD + "/cobble turn: ", "help.turn", "", player);
 					if (pCan(player)) {
-						player.sendMessage(ChatColor.RED + "/cobble global/g on" + ChatColor.RESET +  " Turn on cobblestone drop");
-						player.sendMessage(ChatColor.RED + "/cobble global/g off" + ChatColor.RESET +  " Turn off cobblestone drop");
-						player.sendMessage(ChatColor.GRAY + "Instead, global you can use the g");
+						playerMessage(ChatColor.RED + "/cobble global/g on: ", "help.globalon", "", player);
+						playerMessage(ChatColor.RED + "/cobble global/g off: ", "help.globaloff", "", player);
+						playerMessage("", "help.instead", "", player);
 					}
 				}
 			} else {
-				player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET +  "Cobble" + ChatColor.YELLOW + "---|");
-				player.sendMessage(ChatColor.GREEN + "Your drop: " + Main.getDropController().playerCanDropSring(player));
-				player.sendMessage(ChatColor.AQUA + "Global Drop: " + Main.getDropController().canDropString());
+				player.sendMessage(ChatColor.YELLOW + "|---" + ChatColor.RESET + "Cobble" + ChatColor.YELLOW + "---|");
+				playerMessage("", "info.youdrop", dropControler.playerCanDropSring(player), player);
+				playerMessage("", "info.globaldrop", dropControler.canDropString(), player);
 				return false;
 			}
 		}
@@ -97,6 +98,36 @@ public class Commands implements CommandExecutor {
 		if (player.isOp()) return true;
 		if (player.hasPermission("cobble.cant")) return false;
 		return true;
+	}
+
+	public void consoleMessage(String prefix, String input, String text, ConsoleCommandSender console) {
+		String msg = main.config.getString("messages." + input);
+		msg = replaceColors(prefix + msg, true);
+		if (text == null) {
+			console.sendMessage(msg);
+			return;
+		}
+		msg += text;
+		console.sendMessage(msg);
+	}
+
+	public void playerMessage(String prefix, String input, String text, Player player) {
+		String msg = main.config.getString("messages." + input);
+		msg = replaceColors(prefix + ChatColor.RESET + msg, false);
+		if (text == null) {
+			player.sendMessage(msg);
+			return;
+		}
+		msg += text;
+		player.sendMessage(msg);
+	}
+
+	public String replaceColors(String input, boolean console) {
+		if (input == null) return null;
+		if (console) {
+			return input.replaceAll("(&([a-fk-or0-9]))", "");
+		}
+		return input.replaceAll("(&([a-fk-or0-9]))", "\u00A7$2");
 	}
 
 }

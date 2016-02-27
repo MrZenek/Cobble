@@ -22,6 +22,10 @@ Config is updated when the server shuts down(When server disable the plugins)
 
 ChangeLog:
 ===========
+3.3  
+* Added chat messages to config file!  
+* Added colors support for chat messages!  
+
 3.2  
 * Added permission!  
 * Removed static methods in DropController!  

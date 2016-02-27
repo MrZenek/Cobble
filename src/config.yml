@@ -9,3 +9,16 @@
 version: 1
 #When its true, cobblestone can drop from stone. If false it can't drop.
 global-drop: true
+
+messages:
+  info:
+    youdrop: '&aYour Drop: '
+    globaldrop: '&dGlobal Drop: '
+  error:
+    nopermission: '&cYou can`t do that'
+  help:
+    cobble: 'Showing your drop and global drop status'
+    turn: 'Changing your cobblestone drop status'
+    globalon: 'Turn on cobblestone drop'
+    globaloff: 'Turn off cobblestone drop'
+    instead: '&7Instead, global you can use the g'
