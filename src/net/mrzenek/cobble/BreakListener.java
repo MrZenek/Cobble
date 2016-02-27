@@ -15,7 +15,6 @@ public class BreakListener implements Listener {
 		Player player = e.getPlayer();
 		DropControler dropControler = DropControler.getInstance();
 		if (e.getBlock().getType() == Material.STONE) {
-			System.out.println("a");
 			if(player.getGameMode() != GameMode.SURVIVAL) return;
 			if (!player.isOp() & player.hasPermission("cobble.on")) return;
 			if (!player.isOp() & player.hasPermission("cobble.off")) {
